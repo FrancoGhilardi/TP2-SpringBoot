@@ -1,0 +1,560 @@
+{
+  "info": {
+    "name": "TP2 Spring Boot - Sistema de Gestion de Pedidos",
+    "description": "Puntos 5 a 8 de la consigna: alta de 3 categorias, 10 productos, 2 usuarios y 3 pedidos (>=2 detalles c/u) a partir de DTOs (punto 5); actualizar 1 categoria (punto 6); buscar usuario por id y por mail, quedando registrado por consola via SLF4J (puntos 7 y 8). Correr con Collection Runner en orden (Categorias -> Productos -> Usuarios -> Pedidos -> Puntos 6-8): cada request de alta captura el id de la respuesta en una variable de coleccion usada por los siguientes.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:8080" },
+    { "key": "catElectronicaId", "value": "" },
+    { "key": "catIndumentariaId", "value": "" },
+    { "key": "catHogarId", "value": "" },
+    { "key": "prodMouseId", "value": "" },
+    { "key": "prodTecladoId", "value": "" },
+    { "key": "prodMonitorId", "value": "" },
+    { "key": "prodAuricularesId", "value": "" },
+    { "key": "prodRemeraId", "value": "" },
+    { "key": "prodPantalonId", "value": "" },
+    { "key": "prodZapatillasId", "value": "" },
+    { "key": "prodSabanasId", "value": "" },
+    { "key": "prodOllasId", "value": "" },
+    { "key": "prodCamperaId", "value": "" },
+    { "key": "usuario1Id", "value": "" },
+    { "key": "usuario2Id", "value": "" }
+  ],
+  "item": [
+    {
+      "name": "Categorias",
+      "item": [
+        {
+          "name": "01 - Crear Categoria Electronica",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('201 Created', () => pm.response.to.have.status(201));",
+                  "pm.collectionVariables.set('catElectronicaId', pm.response.json().id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Electronica\",\n  \"descripcion\": \"Gadgets y dispositivos electronicos\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/api/categorias", "host": ["{{baseUrl}}"], "path": ["api", "categorias"] }
+          }
+        },
+        {
+          "name": "02 - Crear Categoria Indumentaria",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('201 Created', () => pm.response.to.have.status(201));",
+                  "pm.collectionVariables.set('catIndumentariaId', pm.response.json().id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Indumentaria\",\n  \"descripcion\": \"Ropa y calzado\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/api/categorias", "host": ["{{baseUrl}}"], "path": ["api", "categorias"] }
+          }
+        },
+        {
+          "name": "03 - Crear Categoria Hogar",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('201 Created', () => pm.response.to.have.status(201));",
+                  "pm.collectionVariables.set('catHogarId', pm.response.json().id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Hogar\",\n  \"descripcion\": \"Articulos para el hogar\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/api/categorias", "host": ["{{baseUrl}}"], "path": ["api", "categorias"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Productos",
+      "item": [
+        {
+          "name": "04 - Crear Producto Mouse optico",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('201 Created', () => pm.response.to.have.status(201));",
+                  "pm.collectionVariables.set('prodMouseId', pm.response.json().id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Mouse optico inalambrico\",\n  \"precio\": 4999.90,\n  \"descripcion\": \"Mouse optico inalambrico\",\n  \"stock\": 50,\n  \"imagen\": null,\n  \"disponible\": true,\n  \"categoriaId\": {{catElectronicaId}}\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/api/productos", "host": ["{{baseUrl}}"], "path": ["api", "productos"] }
+          }
+        },
+        {
+          "name": "05 - Crear Producto Teclado mecanico",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('201 Created', () => pm.response.to.have.status(201));",
+                  "pm.collectionVariables.set('prodTecladoId', pm.response.json().id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Teclado mecanico RGB\",\n  \"precio\": 15999.00,\n  \"descripcion\": \"Switches azules\",\n  \"stock\": 30,\n  \"imagen\": null,\n  \"disponible\": true,\n  \"categoriaId\": {{catElectronicaId}}\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/api/productos", "host": ["{{baseUrl}}"], "path": ["api", "productos"] }
+          }
+        },
+        {
+          "name": "06 - Crear Producto Monitor 24 pulgadas",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('201 Created', () => pm.response.to.have.status(201));",
+                  "pm.collectionVariables.set('prodMonitorId', pm.response.json().id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Monitor 24 pulgadas\",\n  \"precio\": 89999.00,\n  \"descripcion\": \"Full HD, 75Hz\",\n  \"stock\": 15,\n  \"imagen\": null,\n  \"disponible\": true,\n  \"categoriaId\": {{catElectronicaId}}\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/api/productos", "host": ["{{baseUrl}}"], "path": ["api", "productos"] }
+          }
+        },
+        {
+          "name": "07 - Crear Producto Auriculares bluetooth",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('201 Created', () => pm.response.to.have.status(201));",
+                  "pm.collectionVariables.set('prodAuricularesId', pm.response.json().id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Auriculares bluetooth\",\n  \"precio\": 12999.00,\n  \"descripcion\": \"Cancelacion de ruido\",\n  \"stock\": 25,\n  \"imagen\": null,\n  \"disponible\": true,\n  \"categoriaId\": {{catElectronicaId}}\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/api/productos", "host": ["{{baseUrl}}"], "path": ["api", "productos"] }
+          }
+        },
+        {
+          "name": "08 - Crear Producto Remera basica",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('201 Created', () => pm.response.to.have.status(201));",
+                  "pm.collectionVariables.set('prodRemeraId', pm.response.json().id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Remera basica\",\n  \"precio\": 6500.00,\n  \"descripcion\": \"100% algodon\",\n  \"stock\": 60,\n  \"imagen\": null,\n  \"disponible\": true,\n  \"categoriaId\": {{catIndumentariaId}}\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/api/productos", "host": ["{{baseUrl}}"], "path": ["api", "productos"] }
+          }
+        },
+        {
+          "name": "09 - Crear Producto Pantalon jean",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('201 Created', () => pm.response.to.have.status(201));",
+                  "pm.collectionVariables.set('prodPantalonId', pm.response.json().id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Pantalon jean\",\n  \"precio\": 18900.00,\n  \"descripcion\": \"Corte recto\",\n  \"stock\": 40,\n  \"imagen\": null,\n  \"disponible\": true,\n  \"categoriaId\": {{catIndumentariaId}}\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/api/productos", "host": ["{{baseUrl}}"], "path": ["api", "productos"] }
+          }
+        },
+        {
+          "name": "10 - Crear Producto Zapatillas urbanas",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('201 Created', () => pm.response.to.have.status(201));",
+                  "pm.collectionVariables.set('prodZapatillasId', pm.response.json().id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Zapatillas urbanas\",\n  \"precio\": 34900.00,\n  \"descripcion\": \"Talles 38-45\",\n  \"stock\": 20,\n  \"imagen\": null,\n  \"disponible\": true,\n  \"categoriaId\": {{catIndumentariaId}}\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/api/productos", "host": ["{{baseUrl}}"], "path": ["api", "productos"] }
+          }
+        },
+        {
+          "name": "11 - Crear Producto Juego de sabanas",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('201 Created', () => pm.response.to.have.status(201));",
+                  "pm.collectionVariables.set('prodSabanasId', pm.response.json().id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Juego de sabanas\",\n  \"precio\": 21900.00,\n  \"descripcion\": \"Queen size\",\n  \"stock\": 22,\n  \"imagen\": null,\n  \"disponible\": true,\n  \"categoriaId\": {{catHogarId}}\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/api/productos", "host": ["{{baseUrl}}"], "path": ["api", "productos"] }
+          }
+        },
+        {
+          "name": "12 - Crear Producto Set de ollas",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('201 Created', () => pm.response.to.have.status(201));",
+                  "pm.collectionVariables.set('prodOllasId', pm.response.json().id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Set de ollas\",\n  \"precio\": 55900.00,\n  \"descripcion\": \"5 piezas antiadherentes\",\n  \"stock\": 12,\n  \"imagen\": null,\n  \"disponible\": true,\n  \"categoriaId\": {{catHogarId}}\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/api/productos", "host": ["{{baseUrl}}"], "path": ["api", "productos"] }
+          }
+        },
+        {
+          "name": "13 - Crear Producto Campera de abrigo",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('201 Created', () => pm.response.to.have.status(201));",
+                  "pm.collectionVariables.set('prodCamperaId', pm.response.json().id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Campera de abrigo\",\n  \"precio\": 42900.00,\n  \"descripcion\": \"Impermeable\",\n  \"stock\": 18,\n  \"imagen\": null,\n  \"disponible\": true,\n  \"categoriaId\": {{catHogarId}}\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/api/productos", "host": ["{{baseUrl}}"], "path": ["api", "productos"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Usuarios",
+      "item": [
+        {
+          "name": "14 - Crear Usuario Ana Perez (ADMIN)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('201 Created', () => pm.response.to.have.status(201));",
+                  "pm.collectionVariables.set('usuario1Id', pm.response.json().id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Ana\",\n  \"apellido\": \"Perez\",\n  \"mail\": \"ana.perez@example.com\",\n  \"celular\": \"1122334455\",\n  \"contrasena\": \"admin123\",\n  \"rol\": \"ADMIN\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/api/usuarios", "host": ["{{baseUrl}}"], "path": ["api", "usuarios"] }
+          }
+        },
+        {
+          "name": "15 - Crear Usuario Juan Gomez (USUARIO)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('201 Created', () => pm.response.to.have.status(201));",
+                  "pm.collectionVariables.set('usuario2Id', pm.response.json().id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Juan\",\n  \"apellido\": \"Gomez\",\n  \"mail\": \"juan.gomez@example.com\",\n  \"celular\": \"1155667788\",\n  \"contrasena\": \"user123\",\n  \"rol\": \"USUARIO\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/api/usuarios", "host": ["{{baseUrl}}"], "path": ["api", "usuarios"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Pedidos",
+      "item": [
+        {
+          "name": "16 - Crear Pedido de Ana (TARJETA, 2 detalles)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('201 Created', () => pm.response.to.have.status(201));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"usuarioId\": {{usuario1Id}},\n  \"formaPago\": \"TARJETA\",\n  \"detalles\": [\n    { \"productoId\": {{prodMouseId}}, \"cantidad\": 2 },\n    { \"productoId\": {{prodTecladoId}}, \"cantidad\": 1 }\n  ]\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/api/pedidos", "host": ["{{baseUrl}}"], "path": ["api", "pedidos"] }
+          }
+        },
+        {
+          "name": "17 - Crear Pedido de Juan (TRANSFERENCIA, 3 detalles)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('201 Created', () => pm.response.to.have.status(201));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"usuarioId\": {{usuario2Id}},\n  \"formaPago\": \"TRANSFERENCIA\",\n  \"detalles\": [\n    { \"productoId\": {{prodRemeraId}}, \"cantidad\": 3 },\n    { \"productoId\": {{prodPantalonId}}, \"cantidad\": 1 },\n    { \"productoId\": {{prodSabanasId}}, \"cantidad\": 1 }\n  ]\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/api/pedidos", "host": ["{{baseUrl}}"], "path": ["api", "pedidos"] }
+          }
+        },
+        {
+          "name": "18 - Crear Pedido de Ana (EFECTIVO, 2 detalles)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('201 Created', () => pm.response.to.have.status(201));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"usuarioId\": {{usuario1Id}},\n  \"formaPago\": \"EFECTIVO\",\n  \"detalles\": [\n    { \"productoId\": {{prodOllasId}}, \"cantidad\": 1 },\n    { \"productoId\": {{prodCamperaId}}, \"cantidad\": 1 }\n  ]\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/api/pedidos", "host": ["{{baseUrl}}"], "path": ["api", "pedidos"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Puntos 6-8",
+      "item": [
+        {
+          "name": "19 - Actualizar Categoria Electronica",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('200 OK', () => pm.response.to.have.status(200));",
+                  "pm.test('descripcion actualizada', () => pm.expect(pm.response.json().descripcion).to.eql('Gadgets, dispositivos y accesorios'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Electronica\",\n  \"descripcion\": \"Gadgets, dispositivos y accesorios\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/categorias/{{catElectronicaId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "categorias", "{{catElectronicaId}}"]
+            }
+          }
+        },
+        {
+          "name": "20 - Buscar Usuario por id (Ana)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('200 OK', () => pm.response.to.have.status(200));",
+                  "pm.test('es Ana', () => pm.expect(pm.response.json().nombre).to.eql('Ana'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/usuarios/{{usuario1Id}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "usuarios", "{{usuario1Id}}"]
+            }
+          },
+          "description": "Ademas de devolver el usuario, UsuarioService lo loguea por consola via SLF4J (id, nombre, apellido, mail, celular, rol, cantidad de pedidos)."
+        },
+        {
+          "name": "21 - Buscar Usuario por mail (Juan)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('200 OK', () => pm.response.to.have.status(200));",
+                  "pm.test('es Juan', () => pm.expect(pm.response.json().nombre).to.eql('Juan'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/usuarios/buscar?mail=juan.gomez@example.com",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "usuarios", "buscar"],
+              "query": [{ "key": "mail", "value": "juan.gomez@example.com" }]
+            }
+          },
+          "description": "Ademas de devolver el usuario, UsuarioService lo loguea por consola via SLF4J (id, nombre, apellido, mail, celular, rol, cantidad de pedidos)."
+        }
+      ]
+    }
+  ]
+}
