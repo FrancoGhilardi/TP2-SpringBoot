@@ -1,5 +1,6 @@
 package com.tp2springboot.tp2_spring_boot.dto.producto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -17,10 +18,16 @@ import jakarta.validation.constraints.PositiveOrZero;
  * @param categoriaId id de la nueva categoría, obligatorio
  */
 public record ProductoEdit(
-    @NotBlank String nombre,
-    @NotNull @Positive Double precio,
-    String descripcion,
-    @NotNull @PositiveOrZero Integer stock,
-    String imagen,
-    Boolean disponible,
-    @NotNull Long categoriaId) {}
+    @Schema(description = "Nuevo nombre del producto", example = "Mouse óptico") @NotBlank
+        String nombre,
+    @Schema(description = "Nuevo precio unitario", example = "5499.90") @NotNull @Positive
+        Double precio,
+    @Schema(description = "Nueva descripción", example = "Mouse óptico inalámbrico")
+        String descripcion,
+    @Schema(description = "Nuevo stock", example = "40") @NotNull @PositiveOrZero
+        Integer stock,
+    @Schema(description = "Nueva imagen", example = "https://example.com/mouse.png")
+        String imagen,
+    @Schema(description = "Nueva disponibilidad", example = "true") Boolean disponible,
+    @Schema(description = "Id de la nueva categoría", example = "1") @NotNull
+        Long categoriaId) {}

@@ -1,6 +1,7 @@
 package com.tp2springboot.tp2_spring_boot.dto.usuario;
 
 import com.tp2springboot.tp2_spring_boot.model.enums.Rol;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 
@@ -15,8 +16,12 @@ import jakarta.validation.constraints.NotBlank;
  * @param rol nuevo rol
  */
 public record UsuarioEdit(
-    @NotBlank String nombre,
-    @NotBlank String apellido,
-    @Email @NotBlank String mail,
-    String celular,
-    Rol rol) {}
+    @Schema(description = "Nuevo nombre de pila", example = "Ana") @NotBlank String nombre,
+    @Schema(description = "Nuevo apellido", example = "Gómez") @NotBlank String apellido,
+    @Schema(description = "Nuevo mail", example = "ana.gomez@example.com")
+        @Email
+        @NotBlank
+        String mail,
+    @Schema(description = "Nuevo teléfono de contacto", example = "1122334455")
+        String celular,
+    @Schema(description = "Nuevo rol", example = "USUARIO") Rol rol) {}
